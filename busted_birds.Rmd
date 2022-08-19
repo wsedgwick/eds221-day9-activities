@@ -97,8 +97,9 @@ This code creates a plot of the top 15 parks by total bird count.
 ggplot(data = bird_totals_by_park, aes(x = total_count, y = park_name)) +
   geom_col() +
   labs(x = "Total bird count",
-       y = "Park name") %>%
+       y = "Park name") +
   theme_minimal()
+
 ```
 
 
@@ -112,6 +113,7 @@ common_birds <- birds_df %>%
   group_by(park_name, common_name) %>% 
   summarize(total_count = sum(bird_count, na.rm = TRUE)) %>% 
   slice_max(total_count, n = 5)
+
 ```
 
 The code below should limit the observations to the following parks: Cholla Cove, Desert Willow, Nueve, Orme, Palomino, and Sonrisa. Check output, for example using `unique()` to confirm.

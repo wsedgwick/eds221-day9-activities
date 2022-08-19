@@ -3,11 +3,6 @@ title: "Busted birds Copy"
 output: html_document
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 Your job is to fix all errors in the code below to make a fully functioning script that can be run straight through with "Run all" without problems. 
 
 **MAKE A COPY** of this filed called 'fixed_birds.Rmd' that you'll work in. That way you have the original version in case you really bork something and want to get revert. 
@@ -48,6 +43,7 @@ for (i in seq_along(knb_files)) {
     str_remove(pattern = ".csv"), 
       read_csv(here::here("knb-lter-cap_256_9", knb_files[i]))) 
 }
+
 
 
 ```
@@ -93,6 +89,8 @@ bird_totals_by_park <- birds_df %>%
   summarize(total_count = sum(bird_count, na.rm = TRUE)) %>% 
   slice_max(total_count, n = 15) %>% 
   mutate(park_name = fct_reorder(park_name, total_count))
+
+
 ```
 
 This code creates a plot of the top 15 parks by total bird count. 

@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(here)
 library(janitor)
+library(reprex)
 ```
 
 Your job is to identify an error, then make a reproducible example that would help future you or someone else understand how to write the code correctly. In other words, your reprex code will *work* and offer a solution to the error thrown in each of the following examples. 
@@ -37,12 +38,25 @@ mack_creek_lengths <- mack_creek_vertebrates %>%
   clean_names() %>% 
   select(year:sampledate) %>% 
   filter(section == "CC") %>% 
-  mutate(across(where(is.character, tolower))) %>% 
+  mutate(across(where(is.character), tolower)) %>% 
   drop_na(species) %>% 
   group_by(species) %>% 
   summarize(mean_length_cm = mean(length1, na.rm = TRUE),
             sd_length_cm = sd(length1, na.rm = TRUE)) %>% 
   ungroup()
+
+dF <- tribble(
+  ~dogs, ~ages,
+  "Buta", 2,
+  "Teddy", 5,
+  "Topa", 4
+)
+
+lower_dogs <- dF %>% 
+  mutate(across(where(is.character), tolower))
+
+
+
 ```
 
 ### reprex 2
@@ -55,10 +69,22 @@ mack_creek_vertebrates %>%
   clean_names() %>% 
   filter(species == "ONCL") %>% 
   ggplot(aes(x = length1, y = weight)) +
-         geom_point(aes(shape = 12), color = "purple") +
+         geom_point(shape = 12, color = "purple") +
          theme_minimal() +
          labs(x = "Cutthroat trout length (cm)",
               y = "Weight (g)")
+
+dF_2_height_weight <- tribble(
+  ~dog, ~weight, ~age,
+  "Buta", 20, 2,
+  "Teddy", 45, 5,
+  "Topa", 35, 4
+)
+
+dF_2_height_weight %>% 
+  ggplot(aes(x = weight, y = age)) +
+  geom_point(shape = 12, color = "purple")
+
 ```
 
 ## End
